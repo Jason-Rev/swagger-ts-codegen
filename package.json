@@ -1,0 +1,36 @@
+{
+  "name": "swagger-ts-codegen",
+  "version": "0.0.1",
+  "description": "Create Typescript modules, classes and interfaces for swagger 1.2 (hope to support swagger 2+ later and openapis.org later)",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node node_modules/typings/dist/bin/typings.js install",
+    "tsc": "node node_modules/typescript/bin/tsc",
+    "tsc:w": "node node_modules/typescript/bin/tsc -w",
+    "test": "mocha bin/test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jason-Rev/swagger-ts-codegen.git"
+  },
+  "keywords": [
+    "swagger",
+    "codegen",
+    "typescript"
+  ],
+  "author": "Jason Dent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jason-Rev/swagger-ts-codegen/issues"
+  },
+  "homepage": "https://github.com/Jason-Rev/swagger-ts-codegen#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "typescript": "^1.7.5",
+    "typings": "^0.6.7"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
