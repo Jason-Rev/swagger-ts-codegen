@@ -1,0 +1,563 @@
+{
+  "swaggerVersion": "1.2",
+  "apiVersion": "0.1",
+  "basePath": "\/api",
+  "resourcePath": "\/questions",
+  "apis": [
+    {
+      "path": "\/questions.{_format}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "List all Questions.",
+          "nickname": "get_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            },
+            {
+              "paramType": "form",
+              "name": "account",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "the owning account ids"
+            },
+            {
+              "paramType": "form",
+              "name": "limit",
+              "type": "integer",
+              "format": "int32",
+              "description": "the page size"
+            },
+            {
+              "paramType": "form",
+              "name": "page",
+              "type": "integer",
+              "format": "int32",
+              "description": "the page number"
+            },
+            {
+              "paramType": "form",
+              "name": "archive_state",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "archive states"
+            },
+            {
+              "paramType": "form",
+              "name": "publish_state",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "publish states"
+            },
+            {
+              "paramType": "form",
+              "name": "primary_id",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              }
+            },
+            {
+              "paramType": "form",
+              "name": "tag",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "the associated tags"
+            },
+            {
+              "paramType": "form",
+              "name": "question_text",
+              "type": "string",
+              "description": "the question"
+            },
+            {
+              "paramType": "form",
+              "name": "name",
+              "type": "string",
+              "description": "the name"
+            },
+            {
+              "paramType": "form",
+              "name": "is_exact_match",
+              "type": "boolean",
+              "defaultValue": false,
+              "description": "is the name search by exact match?"
+            },
+            {
+              "paramType": "form",
+              "name": "canonical_language_locales",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "the canonical language locale"
+            },
+            {
+              "paramType": "form",
+              "name": "translated_language_locales",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "the language locales that must be translated"
+            },
+            {
+              "paramType": "form",
+              "name": "not_translated_language_locales",
+              "type": "choice",
+              "$ref": "choice",
+              "items": {
+                "$ref": "choice"
+              },
+              "description": "the language locales that must be translated"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful"
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "summary": "Creates a new Question from the submitted data.",
+          "nickname": "post_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            },
+            {
+              "paramType": "form",
+              "name": "question",
+              "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "type": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "description": ""
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful"
+            },
+            {
+              "code": 400,
+              "message": "Returned when the form has errors"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "\/questions\/bulk.{_format}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get many questions by id.",
+          "nickname": "get_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful"
+            },
+            {
+              "code": 404,
+              "message": "Returned when the account is not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "\/questions\/bulk\/latest.{_format}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get many questions by id",
+          "nickname": "get_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful"
+            },
+            {
+              "code": 404,
+              "message": "Returned when the question is not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "\/questions\/{id}.{_format}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get a single Question.",
+          "nickname": "get_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful",
+              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+            },
+            {
+              "code": 404,
+              "message": "Returned when the Question is not found"
+            }
+          ],
+          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+        },
+        {
+          "method": "PATCH",
+          "summary": "Partially update existing Question from the submitted data. in other words: if the form key is missing, the value won't be reset (unlike PUT).",
+          "nickname": "patch_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            },
+            {
+              "paramType": "form",
+              "name": "question",
+              "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "type": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "description": ""
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 204,
+              "message": "Returned when successful"
+            },
+            {
+              "code": 400,
+              "message": "Returned when the form has errors"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "summary": "Update existing Question from the submitted data",
+          "nickname": "put_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            },
+            {
+              "paramType": "form",
+              "name": "question",
+              "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "type": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+              "description": ""
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful"
+            },
+            {
+              "code": 400,
+              "message": "Returned when the form has errors"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "\/questions\/{id}\/copy.{_format}",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "create draft copy of the question",
+          "nickname": "post_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful",
+              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+            },
+            {
+              "code": 404,
+              "message": "Returned when the Question is not found"
+            }
+          ],
+          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+        }
+      ]
+    },
+    {
+      "path": "\/questions\/{id}\/latest.{_format}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Gets the latest published\/live version of the Question.",
+          "nickname": "get_questions",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "_format",
+              "type": "string",
+              "required": true,
+              "enum": [
+                "xml",
+                "json",
+                "jsonp",
+                "html"
+              ]
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "Returned when successful",
+              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+            },
+            {
+              "code": 404,
+              "message": "Returned when the Question is not found"
+            }
+          ],
+          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Revinate.LustroFormServiceBundle.Form.TranslationType": {
+      "id": "Revinate.LustroFormServiceBundle.Form.TranslationType",
+      "description": "the name by language locale",
+      "properties": {
+        "language_locale": {
+          "type": "string",
+          "description": "the language locale"
+        },
+        "text": {
+          "type": "string",
+          "description": "the translation"
+        }
+      },
+      "required": [
+        "language_locale",
+        "text"
+      ]
+    },
+    "Revinate.LustroFormServiceBundle.Form.QuestionOptionType": {
+      "id": "Revinate.LustroFormServiceBundle.Form.QuestionOptionType",
+      "description": "object (QuestionOptionType)",
+      "properties": {
+        "language_locale": {
+          "type": "string",
+          "description": "the language locale"
+        },
+        "text": {
+          "type": "string",
+          "description": "the translation"
+        }
+      },
+      "required": [
+        "language_locale",
+        "text"
+      ]
+    },
+    "Revinate.LustroFormServiceBundle.Form.QuestionType": {
+      "id": "Revinate.LustroFormServiceBundle.Form.QuestionType",
+      "description": "object (QuestionType)",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "the owning account id"
+        },
+        "name_translations": {
+          "type": "array",
+          "description": "the name by language locale",
+          "items": {
+            "$ref": "Revinate.LustroFormServiceBundle.Form.TranslationType"
+          }
+        },
+        "is_live": {
+          "type": "boolean",
+          "description": "is this archived"
+        },
+        "canonical_language_locale": {
+          "type": "string",
+          "description": "the canonical locale"
+        },
+        "is_published": {
+          "type": "boolean",
+          "description": "is this published"
+        },
+        "tags": {
+          "type": "array",
+          "description": "the associated tags",
+          "items": {
+            "$ref": "choice"
+          }
+        },
+        "question_option": {
+          "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionOptionType"
+        },
+        "question_translations": {
+          "type": "array",
+          "description": "the question by language locale",
+          "items": {
+            "$ref": "Revinate.LustroFormServiceBundle.Form.TranslationType"
+          }
+        }
+      },
+      "required": [
+        "account",
+        "name_translations",
+        "canonical_language_locale",
+        "question_translations"
+      ]
+    },
+    "Revinate.LustroFormServiceBundle.Entity.Question": {
+      "id": "Revinate.LustroFormServiceBundle.Entity.Question",
+      "description": "",
+      "properties": [],
+      "required": []
+    }
+  },
+  "produces": [],
+  "consumes": [],
+  "authorizations": []
+}
