@@ -2,13 +2,13 @@
   "name": "swagger-ts-codegen",
   "version": "0.0.1",
   "description": "Create Typescript modules, classes and interfaces for swagger 1.2 (hope to support swagger 2+ later and openapis.org later)",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "postinstall": "node node_modules/typings/dist/bin/typings.js install",
     "tsc": "node node_modules/typescript/bin/tsc",
     "tsc:w": "node node_modules/typescript/bin/tsc -w",
-    "mocha": "mocha bin/test --recursive",
-    "mocha:w": "mocha bin/test --recursive --watch",
+    "mocha": "mocha dist/test --recursive",
+    "mocha:w": "mocha dist/test --recursive --watch",
     "test": "npm run mocha",
     "test:w": "concurrent --raw \"npm run tsc:w\" \"npm run mocha:w\" "
   },
@@ -35,8 +35,9 @@
     "typings": "^0.6.7"
   },
   "dependencies": {
+    "commander": "^2.9.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.3.0",
-    "swagger.d.ts": "0.0.2"
+    "mustache": "^2.2.1"
   }
 }

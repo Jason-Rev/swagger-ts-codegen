@@ -10,13 +10,14 @@
     "removeComments": false,
     "noImplicitAny": false,
     "preserveConstEnums": true,
-    "outDir": "bin",
+    "outDir": "dist",
     "rootDir": "src"
   },
   "exclude": [
     "typings/browser.d.ts",
     "typings/browser",
     "bin",
+    "dist",
     "node_modules"
   ]
 }

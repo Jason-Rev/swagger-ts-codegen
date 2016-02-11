@@ -7,6 +7,8 @@
 import * as fs from "fs";
 import { swagger_12 } from "./swagger_12";
 import * as _ from "lodash";
+import { templates } from "./templates";
+import * as mustache from "mustache";
 
 export module codegen {
 
@@ -26,7 +28,12 @@ export module codegen {
         });
     }
 
-    export function loadSwaggerSpecSync(filename) {
+    export function renderModels(swagger: swagger_12.ApiDeclaration) : string {
+        const models = processModels(swagger);
+        return _.map(models, (model : Model)=>(renderModel(model))).join('\n\n');
+    }
+
+    export function loadSwaggerSpecSync(filename) : swagger_12.ApiDeclaration {
         return JSON.parse(fs.readFileSync(filename, 'UTF-8'));
     }
 
@@ -40,6 +47,16 @@ export module codegen {
         return ref.replace(/[^a-zA-Z0-9_$]/g, '_');
     }
 
+    /**
+     * Render a model into an interface.
+     * @param model
+     * @param template
+     * @returns {string}
+     */
+    export function renderModel(model: Model, template: string = templates.model): string {
+        return mustache.render(template, model);
+    }
+
     export class Model {
         public name: string;
         public description: string;
@@ -47,29 +64,30 @@ export module codegen {
 
         static fromSwagger12ModelObject(swaggerModel: swagger_12.ModelObject) {
             let model = new Model();
+            const required = _.keyBy(swaggerModel.required, (v)=>(v)) || {};
             model.name = refToType(swaggerModel.id);
             model.description = swaggerModel.description || '';
-            model.properties = _.mapValues(swaggerModel.properties, (prop: swagger_12.PropertyObject)=>{
+            model.properties = _.map(swaggerModel.properties, (prop: swagger_12.PropertyObject, name:string)=>{
                 if (prop.type == 'array') {
                     const rawType = prop.items && (prop.items['$ref'] || prop.items['type']) || defaultType;
                     const type = refToType(rawType) + '[]';
-                    return new ModelProperty(type, prop.description || '');
+                    return new ModelProperty(name, type, prop.description || '', !!required[name]);
                 }
                 return new ModelProperty(
+                    name,
                     swaggerTypesToTypescriptTypes[prop.type] || defaultType,
-                    prop.description || ''
+                    prop.description || '',
+                    !!required[name]
                 );
             });
             return model;
         }
     }
 
-    export interface ModelProperties {
-        [index:string]:ModelProperty;
-    }
+    export type ModelProperties = ModelProperty[];
 
     export class ModelProperty {
-        constructor(public type:string, public description:string) {
+        constructor(public name: string, public type:string, public description:string, public required: boolean) {
         }
     }
 

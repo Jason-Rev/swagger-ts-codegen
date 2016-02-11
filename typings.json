@@ -6,6 +6,8 @@
     "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#d6dd320291705694ba8e1a79497a908e9f5e6617"
   },
   "ambientDependencies": {
+    "commander": "github:DefinitelyTyped/DefinitelyTyped/commander/commander.d.ts#6d09e1a5aea3240e7290be602ed03c88e38cd07d",
+    "mustache": "github:DefinitelyTyped/DefinitelyTyped/mustache/mustache.d.ts#8f6209f82843e9697b36e79397fe1e83c428f328",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
   }
 }

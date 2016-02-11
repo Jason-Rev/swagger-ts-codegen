@@ -27,6 +27,7 @@ build/Release
 node_modules
 typings
 bin
+dist
 
 # Optional npm cache directory
 .npm

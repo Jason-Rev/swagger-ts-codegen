@@ -12,7 +12,7 @@ type ApiDeclaration = swagger_12.ApiDeclaration;
 
 describe('Codegen', ()=>{
 
-    const spec = codegen.loadSwaggerSpecSync(__dirname + '/../../src/test/data/api_questions.json') as ApiDeclaration;
+    const spec = codegen.loadSwaggerSpecSync(__dirname + '/../../src/test/data/api_questions.json');
 
     it('verifies spec is not empty',()=>{
         expect(spec).to.not.be.empty;
@@ -29,7 +29,20 @@ describe('Codegen', ()=>{
             expect(model.name).to.not.be.empty;
         });
         const modelQuestionType = models['Revinate.LustroFormServiceBundle.Form.QuestionType'];
-        expect(modelQuestionType.properties['account'].type).to.be.equal('string');
-        expect(modelQuestionType.properties['name_translations'].type).to.be.equal('Revinate_LustroFormServiceBundle_Form_TranslationType[]')
+        const account = _.head(_.filter(modelQuestionType.properties, (prop: codegen.ModelProperty)=>(prop.name == 'account')));
+        expect(account.type).to.be.equal('string');
+
+        const name_translations = _.head(_.filter(modelQuestionType.properties, (prop: codegen.ModelProperty)=>(prop.name == 'name_translations')));
+        expect(name_translations.type).to.be.equal('Revinate_LustroFormServiceBundle_Form_TranslationType[]')
+    });
+
+
+    it('verify can render models', ()=>{
+        const models = codegen.processModels(spec);
+        _.forEach(models, (model: codegen.Model)=>{
+            const text = codegen.renderModel(model);
+            expect(text).to.contain(model.name);
+            console.log(text);
+        });
     });
 });
