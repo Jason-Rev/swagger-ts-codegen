@@ -43,7 +43,7 @@ export module codegen {
     export class Model {
         public name: string;
         public description: string;
-        public properties: {[index:string]:string};
+        public properties: ModelProperties;
 
         static fromSwagger12ModelObject(swaggerModel: swagger_12.ModelObject) {
             let model = new Model();
@@ -52,12 +52,25 @@ export module codegen {
             model.properties = _.mapValues(swaggerModel.properties, (prop: swagger_12.PropertyObject)=>{
                 if (prop.type == 'array') {
                     const rawType = prop.items && (prop.items['$ref'] || prop.items['type']) || defaultType;
-                    const type = refToType(rawType);
-                    return type + '[]';
+                    const type = refToType(rawType) + '[]';
+                    return new ModelProperty(type, prop.description || '');
                 }
-                return swaggerTypesToTypescriptTypes[prop.type] || defaultType;
+                return new ModelProperty(
+                    swaggerTypesToTypescriptTypes[prop.type] || defaultType,
+                    prop.description || ''
+                );
             });
             return model;
         }
     }
+
+    export interface ModelProperties {
+        [index:string]:ModelProperty;
+    }
+
+    export class ModelProperty {
+        constructor(public type:string, public description:string) {
+        }
+    }
+
 }

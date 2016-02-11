@@ -3,6 +3,7 @@
     "target": "ES5",
     "module": "commonjs",
     "moduleResolution": "node",
+    "declaration": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,6 +16,7 @@
   "exclude": [
     "typings/browser.d.ts",
     "typings/browser",
+    "bin",
     "node_modules"
   ]
 }

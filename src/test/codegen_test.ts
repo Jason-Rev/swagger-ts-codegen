@@ -29,7 +29,7 @@ describe('Codegen', ()=>{
             expect(model.name).to.not.be.empty;
         });
         const modelQuestionType = models['Revinate.LustroFormServiceBundle.Form.QuestionType'];
-        expect(modelQuestionType.properties['account']).to.be.equal('string');
-        expect(modelQuestionType.properties['name_translations']).to.be.equal('Revinate_LustroFormServiceBundle_Form_TranslationType[]')
+        expect(modelQuestionType.properties['account'].type).to.be.equal('string');
+        expect(modelQuestionType.properties['name_translations'].type).to.be.equal('Revinate_LustroFormServiceBundle_Form_TranslationType[]')
     });
 });

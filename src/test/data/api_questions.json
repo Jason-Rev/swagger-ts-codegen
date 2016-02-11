@@ -89,9 +89,15 @@
             },
             {
               "paramType": "form",
+              "name": "form",
+              "type": "string",
+              "description": "the associated form"
+            },
+            {
+              "paramType": "form",
               "name": "question_text",
               "type": "string",
-              "description": "the question"
+              "description": "the question text"
             },
             {
               "paramType": "form",
@@ -281,14 +287,14 @@
             {
               "code": 200,
               "message": "Returned when successful",
-              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+              "responseModel": "Revinate.LustroFormServiceBundle.Document.Question"
             },
             {
               "code": 404,
               "message": "Returned when the Question is not found"
             }
           ],
-          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+          "type": "Revinate.LustroFormServiceBundle.Document.Question"
         },
         {
           "method": "PATCH",
@@ -407,14 +413,14 @@
             {
               "code": 200,
               "message": "Returned when successful",
-              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+              "responseModel": "Revinate.LustroFormServiceBundle.Document.Question"
             },
             {
               "code": 404,
               "message": "Returned when the Question is not found"
             }
           ],
-          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+          "type": "Revinate.LustroFormServiceBundle.Document.Question"
         }
       ]
     },
@@ -449,14 +455,14 @@
             {
               "code": 200,
               "message": "Returned when successful",
-              "responseModel": "Revinate.LustroFormServiceBundle.Entity.Question"
+              "responseModel": "Revinate.LustroFormServiceBundle.Document.Question"
             },
             {
               "code": 404,
               "message": "Returned when the Question is not found"
             }
           ],
-          "type": "Revinate.LustroFormServiceBundle.Entity.Question"
+          "type": "Revinate.LustroFormServiceBundle.Document.Question"
         }
       ]
     }
@@ -480,8 +486,8 @@
         "text"
       ]
     },
-    "Revinate.LustroFormServiceBundle.Form.QuestionOptionType": {
-      "id": "Revinate.LustroFormServiceBundle.Form.QuestionOptionType",
+    "Revinate.LustroFormServiceBundle.Form.QuestionOptions.QuestionOptionType": {
+      "id": "Revinate.LustroFormServiceBundle.Form.QuestionOptions.QuestionOptionType",
       "description": "object (QuestionOptionType)",
       "properties": {
         "language_locale": {
@@ -515,11 +521,18 @@
         },
         "is_live": {
           "type": "boolean",
-          "description": "is this archived"
+          "description": "is this live? (else it's archived)"
         },
         "canonical_language_locale": {
           "type": "string",
           "description": "the canonical locale"
+        },
+        "translated_into_language_locales": {
+          "type": "array",
+          "description": "the translated into language locales",
+          "items": {
+            "$ref": "choice"
+          }
         },
         "is_published": {
           "type": "boolean",
@@ -533,11 +546,18 @@
           }
         },
         "question_option": {
-          "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionOptionType"
+          "$ref": "Revinate.LustroFormServiceBundle.Form.QuestionOptions.QuestionOptionType"
         },
         "question_translations": {
           "type": "array",
           "description": "the question by language locale",
+          "items": {
+            "$ref": "Revinate.LustroFormServiceBundle.Form.TranslationType"
+          }
+        },
+        "question_help_translations": {
+          "type": "array",
+          "description": "the question help by language locale",
           "items": {
             "$ref": "Revinate.LustroFormServiceBundle.Form.TranslationType"
           }
@@ -547,14 +567,74 @@
         "account",
         "name_translations",
         "canonical_language_locale",
-        "question_translations"
+        "translated_into_language_locales",
+        "question_translations",
+        "question_help_translations"
       ]
     },
-    "Revinate.LustroFormServiceBundle.Entity.Question": {
-      "id": "Revinate.LustroFormServiceBundle.Entity.Question",
+    "Revinate.LustroFormServiceBundle.Document.Question": {
+      "id": "Revinate.LustroFormServiceBundle.Document.Question",
       "description": "",
-      "properties": [],
-      "required": []
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": null
+        },
+        "tags": {
+          "type": "string",
+          "description": null
+        },
+        "questionTranslations": {
+          "type": "string",
+          "description": null
+        },
+        "questionHelpTranslations": {
+          "type": "string",
+          "description": null
+        },
+        "canonicalLanguageLocale": {
+          "type": "string",
+          "description": null
+        },
+        "nameTranslations": {
+          "type": "string",
+          "description": null
+        },
+        "isLive": {
+          "type": "string",
+          "description": null
+        },
+        "isPublished": {
+          "type": "string",
+          "description": null
+        },
+        "isPrimary": {
+          "type": "string",
+          "description": null
+        },
+        "questionOption": {
+          "type": "string",
+          "description": null
+        },
+        "type": {
+          "type": "string",
+          "description": "string"
+        },
+        "primary_id": {
+          "type": "integer",
+          "description": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "account",
+        "tags",
+        "canonicalLanguageLocale",
+        "isLive",
+        "isPublished",
+        "isPrimary",
+        "questionOption"
+      ]
     }
   },
   "produces": [],
