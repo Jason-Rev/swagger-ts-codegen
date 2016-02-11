@@ -7,8 +7,10 @@
     "postinstall": "node node_modules/typings/dist/bin/typings.js install",
     "tsc": "node node_modules/typescript/bin/tsc",
     "tsc:w": "node node_modules/typescript/bin/tsc -w",
-    "test": "mocha bin/test --recursive",
-    "test:w": "concurrent --raw \"npm run tsc:w\" \"npm run test\" "
+    "mocha": "mocha bin/test --recursive",
+    "mocha:w": "mocha bin/test --recursive --watch",
+    "test": "npm run mocha",
+    "test:w": "concurrent --raw \"npm run tsc:w\" \"npm run mocha:w\" "
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,10 @@
 import chai = require('chai');
 import { codegen } from "../codegen";
 const { expect } = chai;
+import { swagger_12 } from "../swagger_12";
+import * as _ from "lodash";
 
+type ApiDeclaration = swagger_12.ApiDeclaration;
 
 describe('Codegen', ()=>{
 
@@ -19,4 +22,14 @@ describe('Codegen', ()=>{
         expect(spec.swaggerVersion).to.be.equal('1.2');
     });
 
+    it('verifies spec models', ()=>{
+        const models = codegen.processModels(spec);
+        expect(models).to.not.be.empty;
+        _.forEach(models, (model: codegen.Model)=>{
+            expect(model.name).to.not.be.empty;
+        });
+        const modelQuestionType = models['Revinate.LustroFormServiceBundle.Form.QuestionType'];
+        expect(modelQuestionType.properties['account']).to.be.equal('string');
+        expect(modelQuestionType.properties['name_translations']).to.be.equal('Revinate_LustroFormServiceBundle_Form_TranslationType[]')
+    });
 });
