@@ -42,7 +42,7 @@ describe('Codegen', ()=>{
         _.forEach(models, (model: codegen.Model)=>{
             const text = codegen.renderModel(model);
             expect(text).to.contain(model.name);
-            console.log(text);
+            // console.log(text);
         });
     });
 });

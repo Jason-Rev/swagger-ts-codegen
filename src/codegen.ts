@@ -16,8 +16,7 @@ export module codegen {
         integer: "number",
         number: "number",
         string: "string",
-        boolean: "boolean",
-        choice: "string"
+        boolean: "boolean"
     };
 
     const defaultType = 'string';
@@ -28,9 +27,13 @@ export module codegen {
         });
     }
 
-    export function renderModels(swagger: swagger_12.ApiDeclaration) : string {
-        const models = processModels(swagger);
+    export function renderModels(models) : string {
         return _.map(models, (model : Model)=>(renderModel(model))).join('\n\n');
+    }
+
+    export function renderModelsFromSpec(swagger: swagger_12.ApiDeclaration) : string {
+        const models = processModels(swagger);
+        return renderModels(models);
     }
 
     export function loadSwaggerSpecSync(filename) : swagger_12.ApiDeclaration {
@@ -69,13 +72,13 @@ export module codegen {
             model.description = swaggerModel.description || '';
             model.properties = _.map(swaggerModel.properties, (prop: swagger_12.PropertyObject, name:string)=>{
                 if (prop.type == 'array') {
-                    const rawType = prop.items && (prop.items['$ref'] || prop.items['type']) || defaultType;
+                    const rawType = prop.items && (prop.items['type'] || prop.items['$ref']) || defaultType;
                     const type = refToType(rawType) + '[]';
                     return new ModelProperty(name, type, prop.description || '', !!required[name]);
                 }
                 return new ModelProperty(
                     name,
-                    swaggerTypesToTypescriptTypes[prop.type] || defaultType,
+                    swaggerTypesToTypescriptTypes[prop.type] || prop.type || defaultType,
                     prop.description || '',
                     !!required[name]
                 );

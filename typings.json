@@ -1,5 +1,7 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "es6-promise": "github:typed-typings/npm-es6-promise#fb04188767acfec1defd054fc8024fafa5cd4de7"
+  },
   "devDependencies": {},
   "ambientDevDependencies": {
     "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#9c25433c84251bfe72bf0030a95edbbb2c81c9d5",
@@ -7,6 +9,8 @@
   },
   "ambientDependencies": {
     "commander": "github:DefinitelyTyped/DefinitelyTyped/commander/commander.d.ts#6d09e1a5aea3240e7290be602ed03c88e38cd07d",
+    "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#6697d6f7dadbf5773cb40ecda35a76027e0783b2",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#c8630523ef2ee3fb42fe65cc17af5b1b56e611bc",
     "mustache": "github:DefinitelyTyped/DefinitelyTyped/mustache/mustache.d.ts#8f6209f82843e9697b36e79397fe1e83c428f328",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
   }
